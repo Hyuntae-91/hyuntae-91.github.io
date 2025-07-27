@@ -1,0 +1,50 @@
+{%- unless author -%}
+  {%- if include.author -%}
+    {%- assign author = include.author -%}
+  {%- elsif page.author -%}
+    {%- assign author = site.data.authors[page.author] | default: site.author -%}
+  {%- else -%}
+    {%- assign author = site.author -%}
+  {%- endif -%}
+{%- endunless -%}
+
+<div class="author__avatar">
+  {%- if author.avatar -%}
+  <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}">
+  {%- endif -%}
+</div>
+
+<div class="author__content">
+  <h3 class="author__name">{{ author.name }}</h3>
+  <p class="author__bio">{{ author.bio }}</p>
+
+  {%- if author.links -%}
+  <div class="author__urls-wrapper">
+    <button class="btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      {%- for link in author.links -%}
+      <li>
+        <a href="{{ link.url }}"><i class="{{ link.icon }}"></i>
+          <span class="label">{{ link.label }}</span></a>
+      </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+
+  <hr class="separator">
+
+  <h3 class="text-small" style="margin-top:0.5rem;">Categories</h3>
+  <ul class="taxonomy__index">
+    {%- assign sorted = site.categories | sort -%}
+    {%- for cat in sorted -%}
+      {%- assign name  = cat[0] -%}
+      {%- assign posts = cat[1] -%}
+      <li>
+        <a href="{{ '/categories/#' | append: name | slugify | relative_url }}">
+          {{ name }} <span class="taxonomy__count">{{ posts | size }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
