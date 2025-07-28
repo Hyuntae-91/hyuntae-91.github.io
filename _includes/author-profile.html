@@ -36,15 +36,29 @@
 
   <h3 class="text-small" style="margin-top:0.5rem;">Categories</h3>
   <ul class="taxonomy__index">
-    {%- assign sorted = site.categories | sort -%}
-    {%- for cat in sorted -%}
-      {%- assign name  = cat[0] -%}
-      {%- assign posts = cat[1] -%}
-      <li>
-        <a href="{{ '/categories/#' | append: name | slugify | relative_url }}">
-          {{ name }} <span class="taxonomy__count">{{ posts | size }}</span>
-        </a>
-      </li>
-    {%- endfor -%}
+    {%- assign allowed = site.visible_categories | default: nil -%}
+    {%- if allowed and allowed != empty -%}
+      {%- for name in allowed -%}
+        {%- assign posts = site.categories[name] -%}
+        {%- assign slug = name | slugify -%}
+        <li>
+          <a href="{{ '/categories/#' | append: slug | relative_url }}">
+            {{ name }} <span class="taxonomy__count">{{ posts | size | default: 0 }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign sorted = site.categories | sort -%}
+      {%- for cat in sorted -%}
+        {%- assign name  = cat[0] -%}
+        {%- assign posts = cat[1] -%}
+        {%- assign slug  = name | slugify -%}
+        <li>
+          <a href="{{ '/categories/#' | append: slug | relative_url }}">
+            {{ name }} <span class="taxonomy__count">{{ posts | size }} </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    {%- endif -%}
   </ul>
 </div>

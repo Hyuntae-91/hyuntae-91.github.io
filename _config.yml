@@ -35,17 +35,10 @@ timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 include:
   - _pages
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
 
 # Plugins (previously gems:)
 plugins:
@@ -67,6 +60,9 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://www.instagram.com/hyuntae.ken.kim/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/hyuntae-kim-8aa09514b/"
 
 footer:
   links:
@@ -87,7 +83,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
+      share: false
       related: true
   # _pages
   - scope:
@@ -103,3 +99,8 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+# Add this list to control which categories are shown in sidebar/author profile
+visible_categories:
+  - GIT
+  - TEST

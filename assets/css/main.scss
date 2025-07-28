@@ -1,0 +1,29 @@
+---
+---
+
+@import "minimal-mistakes";
+@import "minimal-mistakes/skins/default";
+
+.taxonomy__index a { opacity: 1 !important; }
+.taxonomy__index a:hover  { opacity: 1; }
+
+/* Prevent sidebar from being semi-transparent */
+@media (min-width: 64em) {
+  .sidebar {
+    opacity: 1 !important;
+  }
+}
+
+/* Display categories vertically in author profile */
+.author__content .taxonomy__index {
+  display: block !important; /* override grid */
+  font-size: 1em;            /* larger text */
+  margin: 1rem 0;
+}
+.author__content .taxonomy__index li {
+  margin-bottom: 0.5rem;
+}
+.author__content .taxonomy__index a {
+  border: none !important;   /* remove bottom border */
+  padding: 0;                /* no extra padding */
+}
