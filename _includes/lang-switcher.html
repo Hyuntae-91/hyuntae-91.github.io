@@ -1,0 +1,22 @@
+{% comment %}
+  Simple language switcher – shows every language listed in site.languages.
+  The current language is marked active.
+{% endcomment %}
+
+{% if site.languages and site.languages.size > 1 %}
+<ul class="lang-switcher" style="margin:0 1rem 0.4rem 4rem; display:flex; gap:.5rem; list-style:none; font-size:0.7em; line-height:1; color:#808080; align-self:flex-end;">
+  {% for lang in site.languages %}
+    {% assign is_current = lang == site.active_lang %}
+    <li{% if is_current %} class="active"{% endif %} style="padding:0;">
+      {% if is_current %}
+        <span style="font-weight:bold; text-decoration:underline;">{{ lang | upcase }}</span>
+      {% else %}
+        {% capture lang_url %}{% if lang == site.default_lang %}{{ site.baseurl_root }}{% else %}{{ site.baseurl_root }}/{{ lang }}{% endif %}{% endcapture %}
+        <a href="{{ lang_url }}/" style="text-decoration:underline; color:#808080;">
+          {{ lang | upcase }}
+        </a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
