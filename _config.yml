@@ -12,7 +12,7 @@ search: true
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 # Outputting
-permalink: /:categories/:title/
+permalink: /:categories/:slug/:year-:month-:day/:title
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -68,9 +68,11 @@ footer:
 defaults:
   # _posts
   - scope:
-      path: ""
-      type: posts
+      path: "_posts/ko"
+      type: "posts"
     values:
+      lang: ko
+      permalink: "/:categories/:slug/:year:month:day/:title"
       layout: single
       author_profile: true
       read_time: true
@@ -81,11 +83,11 @@ defaults:
       toc_sticky: true   # make TOC stick while scrolling
   # _pages
   - scope:
-      path: "_pages"
-      type: pages
+      path: "_posts/en"
+      type: "posts"
     values:
-      layout: single
-      author_profile: true
+      lang: en
+      permalink: "/en/:categories/:slug/:year:month:day/:title"
 
 category_archive:
   type: liquid
@@ -96,6 +98,7 @@ tag_archive:
 
 # Add this list to control which categories are shown in sidebar/author profile
 visible_categories:
+  - ALL
   - GIT
   - TEST
 

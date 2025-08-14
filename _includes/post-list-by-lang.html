@@ -1,0 +1,14 @@
+{% assign source = include.items | default: (paginator.posts | default: site.posts) %}
+{% assign items = source | where: "lang", page.lang %}
+
+{%- if include.exclude_url -%}
+  {% assign items = items | where_exp: "p", "p.url != include.exclude_url" %}
+{%- endif -%}
+
+{%- if include.limit -%}
+  {% assign items = items | slice: 0, include.limit %}
+{%- endif -%}
+
+{% for post in items %}
+  {% include archive-single.html type=include.type entry=post %}
+{% endfor %}

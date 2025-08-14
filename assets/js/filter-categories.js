@@ -4,6 +4,8 @@
     var hash = window.location.hash.slice(1).toLowerCase(); // current category slug
     var sections = document.querySelectorAll('.taxonomy__section');
 
+    // no-op
+
     // If no hash → show everything
     if (!hash) {
       sections.forEach(function (sec) {

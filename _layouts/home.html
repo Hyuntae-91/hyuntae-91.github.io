@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+  <div class="archive">
+    {%- assign current_lang = page.lang | default: site.default_lang -%}
+    {%- assign lang_posts = site.posts | where: 'lang', current_lang -%}
+    {%- assign per_page = site.paginate | default: 5 -%}
+    {%- assign items = lang_posts | slice: 0, per_page -%}
+
+    {%- for post in items -%}
+      {%- include archive-single.html type="list" entry=post -%}
+    {%- endfor -%}
+  </div>
+</div>
+

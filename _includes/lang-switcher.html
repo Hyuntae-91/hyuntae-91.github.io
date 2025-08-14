@@ -4,19 +4,47 @@
 {% endcomment %}
 
 {% if site.languages and site.languages.size > 1 %}
+{%- comment -%} Render both links always; highlight via JS to avoid detection issues {%- endcomment -%}
+
+{% assign current_path = page.url | default: '/' %}
+{% if current_path == '/en' %}{% assign current_path = '/en/' %}{% endif %}
+{% assign root_path = current_path %}
+{% if root_path contains '/en/' and root_path != '/en/' %}
+  {% assign root_path = root_path | remove_first: '/en' %}
+{% elsif root_path == '/en/' %}
+  {% assign root_path = '/' %}
+{% endif %}
+
 <ul class="lang-switcher" style="margin:0 1rem 0.4rem 4rem; display:flex; gap:.5rem; list-style:none; font-size:0.7em; line-height:1; color:#808080; align-self:flex-end;">
   {% for lang in site.languages %}
-    {% assign is_current = lang == site.active_lang %}
-    <li{% if is_current %} class="active"{% endif %} style="padding:0;">
-      {% if is_current %}
-        <span style="font-weight:bold; text-decoration:underline;">{{ lang | upcase }}</span>
-      {% else %}
-        {% capture lang_url %}{% if lang == site.default_lang %}{{ site.baseurl_root }}{% else %}{{ site.baseurl_root }}/{{ lang }}{% endif %}{% endcapture %}
-        <a href="{{ lang_url }}/" style="text-decoration:underline; color:#808080;">
-          {{ lang | upcase }}
-        </a>
-      {% endif %}
+    {% if lang == site.default_lang %}
+      {% assign target = '/' %}
+    {% else %}
+      {% assign target = '/' | append: lang | append: '/' %}
+    {% endif %}
+    <li style="padding:0;">
+      <a data-lang="{{ lang }}" href="{{ target | relative_url }}" style="color:#808080;">
+        {{ lang | upcase }}
+      </a>
     </li>
   {% endfor %}
 </ul>
+<script>
+  (function(){
+    try{
+      var isEn = (location.pathname === '/en' || location.pathname.indexOf('/en/') === 0);
+      var links = document.querySelectorAll('.lang-switcher a[data-lang]');
+      links.forEach(function(a){
+        var lang = a.getAttribute('data-lang');
+        var li = a.parentElement;
+        if (!li) return;
+        if ((isEn && lang === 'en') || (!isEn && lang !== 'en')) {
+          li.classList.add('active');
+          a.style.fontWeight = 'bold';
+          a.style.pointerEvents = 'none';
+        }
+      });
+    }catch(e){}
+  })();
+  </script>
 {% endif %}

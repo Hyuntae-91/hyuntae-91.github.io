@@ -1,0 +1,10 @@
+<div class="sidebar sticky">
+  {%- if page.author_profile or layout.author_profile -%}
+    {% include author-profile.html %}
+  {%- endif -%}
+
+  {%- if page.toc or layout.toc -%}
+    {% include toc.html %}
+  {%- endif -%}
+</div>
+

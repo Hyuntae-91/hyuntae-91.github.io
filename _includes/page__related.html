@@ -1,0 +1,9 @@
+{%- assign items = page.related_posts | where: "lang", page.lang -%}
+{%- if items and items != empty -%}
+<section class="page__related">
+  <h2 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "Related" }}</h2>
+  <div class="grid__wrapper">
+    {% include post-list-by-lang.html items=items type="grid" exclude_url=page.url limit=6 %}
+  </div>
+</section>
+{%- endif -%}
