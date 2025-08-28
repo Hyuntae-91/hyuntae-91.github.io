@@ -4,17 +4,6 @@
 {% endcomment %}
 
 {% if site.languages and site.languages.size > 1 %}
-{%- comment -%} Render both links always; highlight via JS to avoid detection issues {%- endcomment -%}
-
-{% assign current_path = page.url | default: '/' %}
-{% if current_path == '/en' %}{% assign current_path = '/en/' %}{% endif %}
-{% assign root_path = current_path %}
-{% if root_path contains '/en/' and root_path != '/en/' %}
-  {% assign root_path = root_path | remove_first: '/en' %}
-{% elsif root_path == '/en/' %}
-  {% assign root_path = '/' %}
-{% endif %}
-
 <ul class="lang-switcher" style="margin:0 1rem 0.4rem 4rem; display:flex; gap:.5rem; list-style:none; font-size:0.7em; line-height:1; color:#808080; align-self:flex-end;">
   {% for lang in site.languages %}
     {% if lang == site.default_lang %}
